@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- HOME FRAGMENT -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.projectharish9.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        
+        <!-- Action to Profile (passing arguments) -->
+        <action
+            android:id="@+id/action_home_to_profile"
+            app:destination="@id/profileFragment" />
+            
+        <!-- Action to Nested Auth Graph -->
+        <action
+            android:id="@+id/action_home_to_auth_graph"
+            app:destination="@id/auth_graph" />
+    </fragment>
+
+    <!-- PROFILE FRAGMENT -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.projectharish9.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        
+        <!-- Argument definition -->
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="Guest" />
+
+        <!-- Deep Linking -->
+        <!-- Try testing with: adb shell am start -W -a android.intent.action.VIEW -d "myapp://profile/12345" -->
+        <deepLink app:uri="myapp://profile/{userId}" />
+    </fragment>
+
+    <!-- NESTED NAVIGATION GRAPH (Auth Flow) -->
+    <navigation 
+        android:id="@+id/auth_graph"
+        app:startDestination="@id/loginFragment">
+        
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.projectharish9.LoginFragment"
+            android:label="Login"
+            tools:layout="@layout/fragment_login" />
+            
+    </navigation>
+
+</navigation>
